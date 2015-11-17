@@ -46,6 +46,9 @@
     <Compile Include="Benchmark.cs" />
     <Compile Include="Concurrency\Concurrency.cs" />
     <Compile Include="Concurrency\ThrottlingQueue.cs" />
+    <Compile Include="Cryptography\CipheredMessages.cs" />
+    <Compile Include="Cryptography\StringConverter.cs" />
+    <Compile Include="Cryptography\XorHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
