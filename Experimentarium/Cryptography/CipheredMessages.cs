@@ -1,4 +1,10 @@
-﻿namespace Experimentarium.Cryptography
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Experimentarium.Cryptography
 {
     public class CipheredMessages
     {
@@ -16,5 +22,76 @@
             "466d06ece998b7a2fb1d464fed2ced7641ddaa3cc31c9941cf110abbf409ed39598005b3399ccfafb61d0315fca0a314be138a9f32503bedac8067f03adbf3575c3b8edc9ba7f537530541ab0f9f3cd04ff50d66f1d559ba520e89a2cb2a83",
             "32510ba9babebbbefd001547a810e67149caee11d945cd7fc81a05e9f85aac650e9052ba6a8cd8257bf14d13e6f0a803b54fde9e77472dbff89d71b57bddef121336cb85ccb8f3315f4b52e301d16e9f52f904"
         };
+
+        public async Task Decrypt()
+        {
+            // outer list - messages, inner list -- symbols candidates
+            //List<List<List<string>>> decrypted = new List<List<List<string>>>();
+
+            StreamWriter file = File.AppendText("temp1.txt");
+
+            string target = Ciphertexts[10];
+            for (int i = 0; i <= 9; i++)
+            {
+                string another = Ciphertexts[i];
+
+                byte[] xoredBytes = XorHelper.XorHexStringsToBytes(target, another);
+
+                string result = StringConverter.ConvertBytesToAsciiString(xoredBytes);
+
+                Console.WriteLine(result);
+                await file.WriteLineAsync(result);
+            }
+
+
+            //int count = Ciphertexts.Length;
+
+            //string[][][] decrypted = new string[count][][];
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    decrypted[i] = new string[Ciphertexts[i].Length][];
+            //}
+
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    for (int j = 0; j < count; j++)
+            //    {
+            //        if (i == j)
+            //            continue;
+
+            //        string a = Ciphertexts[i];
+            //        string b = Ciphertexts[j];
+
+            //        byte[] xoredBytes = XorHelper.XorHexStringsToBytes(a, b);
+
+            //        string result = StringConverter.ConvertBytesToAsciiString(xoredBytes);
+
+            //        Console.WriteLine(result);
+            //        await file.WriteLineAsync(result);
+
+            //        //for (int k = 0; k < xoredBytes.Length; k++)
+            //        //{
+            //        //    string s = Encoding.ASCII.GetString(xoredBytes, i, 1);
+            //        //    if ((String.CompareOrdinal(s, "A") >= 0 && String.CompareOrdinal(s, "Z") <= 0) ||
+            //        //        (String.CompareOrdinal(s, "a") >= 0 && String.CompareOrdinal(s, "z") <= 0))
+            //        //    {
+            //        //        if (decrypted[i][k] == null)
+            //        //        {
+            //        //            decrypted[i][k] = new string[20];
+            //        //        }
+            //        //        if (decrypted[j][k] == null)
+            //        //        {
+            //        //            decrypted[j][k] = new string[20];
+            //        //        }
+
+            //        //        decrypted[i][k][0] = s;
+            //        //        decrypted[j][k][0] = s;
+            //        //    }
+            //        //}
+            //    }
+            //}
+        }
     }
 }
